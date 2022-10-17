@@ -3,6 +3,7 @@ package com.example.weather
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.weather.databinding.ActivityMainBinding
+import com.example.weather.view.weatherlist.WeatherListFragment
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -10,6 +11,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.btn.text = "Change"
+
+
+        if(savedInstanceState == null){
+            supportFragmentManager.beginTransaction().replace(R.id.container, WeatherListFragment.newInstance()).commit()
+        }
     }
 }
