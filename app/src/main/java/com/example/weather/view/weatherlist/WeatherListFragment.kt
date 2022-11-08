@@ -15,7 +15,17 @@ class WeatherListFragment : Fragment() {
         fun newInstance() = WeatherListFragment()
     }
 
-    lateinit var binding: FragmentWeatherListBinding
+    // lateinit var binding: FragmentWeatherListBinding
+    private var _binding:FragmentWeatherListBinding? = null
+    private val binding:FragmentWeatherListBinding
+    get() {
+        return _binding!!
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
     lateinit var viewModel: WeatherListVewModel
 
     override fun onCreateView(
@@ -23,7 +33,7 @@ class WeatherListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentWeatherListBinding.inflate(inflater)
+        _binding = FragmentWeatherListBinding.inflate(inflater)
         return binding.root
     }
 

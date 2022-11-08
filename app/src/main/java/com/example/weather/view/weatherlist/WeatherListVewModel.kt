@@ -9,7 +9,7 @@ import com.example.weather.viewmodel.AppState
 
 class WeatherListVewModel(
     private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>()
-) : ViewModel() {
+    ) : ViewModel() {
 
     lateinit var repository: Repository
 
