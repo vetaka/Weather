@@ -1,16 +1,13 @@
 package com.example.weather.model
 
+
 import com.example.weather.domain.Weather
+import com.example.weather.domain.getRussianCities
+import com.example.weather.domain.getWorldCities
 
-class RepositoryRemoteImpl : Repository {
-    override fun getListWeather(): List<Weather> {
-        Thread {    // запрос в репозиторий
-            Thread.sleep(200L)
-        }.start()
-        return listOf(Weather())
-    }
+class RepositoryRemoteImpl : RepositoryOne {
 
-    override fun getWeather(lat: Double, lon: Double): Weather {
+   override fun getWeather(lat: Double, lon: Double): Weather {
         Thread {    // запрос в репозиторий
             Thread.sleep(300L)
         }.start()

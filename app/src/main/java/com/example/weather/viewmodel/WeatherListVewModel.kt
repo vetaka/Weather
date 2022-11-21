@@ -1,17 +1,16 @@
-package com.example.weather.view.weatherlist
+package com.example.weather.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.weather.model.Repository
-import com.example.weather.model.RepositoryLocalImpl
-import com.example.weather.model.RepositoryRemoteImpl
-import com.example.weather.viewmodel.AppState
+import com.example.weather.model.*
+import com.example.weather.view.weatherlist.AppState
 
 class WeatherListVewModel(
     private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>()
     ) : ViewModel() {
 
-    lateinit var repository: Repository
+    lateinit var repositoryMulti: RepositoryMany
+    lateinit var repositoryOne: RepositoryOne
 
     fun getLiveData(): MutableLiveData<AppState> {
         choiceRepository()
@@ -19,26 +18,30 @@ class WeatherListVewModel(
     }
 
     private fun choiceRepository() {
-        repository = if (isConnection()) {
+        repositoryOne = if (isConnection()) {
             RepositoryRemoteImpl()
         } else {
             RepositoryLocalImpl()
         }
+        repositoryMulti = RepositoryLocalImpl()
     }
 
-    fun sentRequest() {
+    fun getWeatherListForRussia(){
+        sentRequest(Location.Russian)
+    }
+
+    fun getWeatherListForWorld(){
+        sentRequest(Location.World)
+    }
+
+    private fun sentRequest(location: Location) {
         liveData.value = AppState.Loading // пошла загрузка
         if ((0..3).random() == 1) {
             liveData.postValue(AppState.Error(throw IllegalStateException("что-то пошло не так")))
         } else
             liveData.postValue(
-                AppState.Success(
-                    repository.getWeather(
-                        55.755826,
-                        37.617299900000035
-                    )
-                )
-            )
+                AppState.SuccessMulti(
+                    repositoryMulti.getListWeather(location)))
     }
 
     private fun isConnection(): Boolean {
