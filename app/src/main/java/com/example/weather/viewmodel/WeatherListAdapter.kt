@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weather.databinding.FragmentWeatherListBinding
 import com.example.weather.databinding.FragmentWeatherListRecycleItemBinding
 import com.example.weather.domain.Weather
+import com.example.weather.view.details.OnItemClick
 
-class WeatherListAdapter(val dataList:List<Weather>): RecyclerView.Adapter<WeatherListAdapter.WeatherViewHolder>() {
+class WeatherListAdapter(val dataList:List<Weather>, private val callback:OnItemClick): RecyclerView.Adapter<WeatherListAdapter.WeatherViewHolder>() {
 
 
 
@@ -24,10 +25,14 @@ class WeatherListAdapter(val dataList:List<Weather>): RecyclerView.Adapter<Weath
     override fun getItemCount(): Int {
         return dataList.size
     }
-    class WeatherViewHolder(view:View):RecyclerView.ViewHolder(view){
+    inner class WeatherViewHolder(view:View):RecyclerView.ViewHolder(view){
         fun bind(weather:Weather){
             val binding = FragmentWeatherListRecycleItemBinding.bind(itemView)
             binding.cityName.text = weather.city.name
+            binding.root.setOnClickListener{
+                callback.onItemClick(weather)
+            }
         }
+
     }
 }

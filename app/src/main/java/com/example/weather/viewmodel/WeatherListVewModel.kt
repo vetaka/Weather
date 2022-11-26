@@ -36,7 +36,8 @@ class WeatherListVewModel(
 
     private fun sentRequest(location: Location) {
         liveData.value = AppState.Loading // пошла загрузка
-        if ((0..3).random() == 1) {
+       // if ((0..3).random() == 1) {
+        if (false){
             liveData.postValue(AppState.Error(throw IllegalStateException("что-то пошло не так")))
         } else
             liveData.postValue(

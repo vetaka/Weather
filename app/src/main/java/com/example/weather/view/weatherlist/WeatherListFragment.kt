@@ -9,10 +9,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.weather.R
 import com.example.weather.databinding.FragmentWeatherListBinding
+import com.example.weather.domain.Weather
+import com.example.weather.view.details.DetailsFragment
+import com.example.weather.view.details.OnItemClick
+import com.example.weather.viewmodel.MainActivity
 import com.example.weather.viewmodel.WeatherListAdapter
 import com.example.weather.viewmodel.WeatherListVewModel
 
-class WeatherListFragment : Fragment() {
+class WeatherListFragment : Fragment(), OnItemClick {
     companion object {
         fun newInstance() = WeatherListFragment()
     }
@@ -77,7 +81,7 @@ class WeatherListFragment : Fragment() {
             }
 
             is AppState.SuccessMulti -> {
-                binding.mainFragmentRecyclerView.adapter = WeatherListAdapter(appState.weatherList)
+                binding.mainFragmentRecyclerView.adapter = WeatherListAdapter(appState.weatherList,this)
 //                binding.cityName.text = result.city.name
 //                binding.temperatureValue.text = result.temperature.toString()
 //                binding.feelsLikeValue.text = result.feelsLike.toString()
@@ -86,6 +90,12 @@ class WeatherListFragment : Fragment() {
 
             }
         }
+
+    }
+    override fun onItemClick(weather: Weather){
+        (binding.root.context as MainActivity).supportFragmentManager.beginTransaction().replace(
+            R.id.container, DetailsFragment.newInstance(weather)
+        ).commit()
 
     }
 }
