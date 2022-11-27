@@ -93,9 +93,9 @@ class WeatherListFragment : Fragment(), OnItemClick {
 
     }
     override fun onItemClick(weather: Weather){
-        (binding.root.context as MainActivity).supportFragmentManager.beginTransaction().replace(
+        (binding.root.context as MainActivity).supportFragmentManager.beginTransaction().hide(this).add(
             R.id.container, DetailsFragment.newInstance(weather)
-        ).commit()
+        ).addToBackStack("").commit()
 
     }
 }
