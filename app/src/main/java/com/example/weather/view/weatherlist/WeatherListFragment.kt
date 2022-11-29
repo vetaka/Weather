@@ -12,6 +12,7 @@ import com.example.weather.databinding.FragmentWeatherListBinding
 import com.example.weather.domain.Weather
 import com.example.weather.view.details.DetailsFragment
 import com.example.weather.view.details.OnItemClick
+import com.example.weather.viewmodel.AppState
 import com.example.weather.viewmodel.MainActivity
 import com.example.weather.viewmodel.WeatherListAdapter
 import com.example.weather.viewmodel.WeatherListVewModel
